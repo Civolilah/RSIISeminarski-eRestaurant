@@ -19,7 +19,7 @@ services:
     restart: unless-stopped
     build: .
     environment:
-      - ConnectionStrings:eRestarurant=Server=smartrestaurant-sql,1433;Database=eRestarurantDocker;User=sa;Password=QWElkj132!;ConnectRetryCount=0
+      - ConnectionStrings:eRestarurant=Server=smartrestaurant-sql,1433;Database=170058;User=sa;Password=QWElkj132!;ConnectRetryCount=0
     ports:
       -  34080:80
     networks:
