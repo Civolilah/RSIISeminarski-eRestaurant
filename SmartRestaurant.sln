@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MobileApps", "MobileApps\Mo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.Data", "SmartRestaurant.Data\SmartRestaurant.Data.csproj", "{0B718F48-378A-47D4-999B-03F682E46608}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartRestaurant.WebAPI", "SmartRestaurant.WebAPI\SmartRestaurant.WebAPI.csproj", "{86AE29F2-B779-4390-A7BF-977BEF596281}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartRestaurant.WebAPI", "SmartRestaurant.WebAPI\SmartRestaurant.WebAPI.csproj", "{86AE29F2-B779-4390-A7BF-977BEF596281}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
