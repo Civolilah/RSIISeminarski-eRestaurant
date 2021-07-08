@@ -26,11 +26,19 @@ namespace SmartRestaurantWinUI.Narudzbe
         private async void frm_uredi_Load(object sender, EventArgs e)
         {
             var obj= await _aPIService.GetNarudzbu<UrediNarudzbuVM>(_id);
-            dgv_proizvodi.AutoGenerateColumns = false;
-            dgv_proizvodi.DataSource = obj.listaproizvoda;
-            cmb_mjestaposluzivanja.DisplayMember = "BrojMjestaPosluzivanja";
-            cmb_mjestaposluzivanja.ValueMember = "MjestoPosluzivanjaID";
-            cmb_mjestaposluzivanja.DataSource = obj.listamjestaposluzivanja;
+            if (obj != null)
+            {
+                dgv_proizvodi.AutoGenerateColumns = false;
+                dgv_proizvodi.DataSource = obj.listaproizvoda;
+                cmb_mjestaposluzivanja.DisplayMember = "BrojMjestaPosluzivanja";
+                cmb_mjestaposluzivanja.ValueMember = "MjestoPosluzivanjaID";
+                cmb_mjestaposluzivanja.DataSource = obj.listamjestaposluzivanja;
+            }
+            else
+            {
+                MessageBox.Show("Ova narudžba više ne postoji u sistemu!", "Uredi narudžbu", MessageBoxButtons.OK);
+                this.Close();
+            }
         }
 
         private async void btn_snimi_Click(object sender, EventArgs e)

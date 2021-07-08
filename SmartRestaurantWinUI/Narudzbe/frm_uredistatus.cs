@@ -25,16 +25,20 @@ namespace SmartRestaurantWinUI.Narudzbe
         }
 
         private async void frm_uredistatus_Load(object sender, EventArgs e)
-        {
-            IzmjeniStatusNarudzbeVM obj = new IzmjeniStatusNarudzbeVM();
-
-            obj = await _aPIService.GetNarudzbaStatus<IzmjeniStatusNarudzbeVM>(_id);
-
-            txt_narudzbanaziv.Text = obj.NazivNarudzbe;
-            cmb_status.DisplayMember = "NazivStatusa";
-            cmb_status.ValueMember = "StatusNarudzbeID";
-            cmb_status.DataSource = obj.listastatusa;
-            
+        {    
+            var obj = await _aPIService.GetNarudzbaStatus<IzmjeniStatusNarudzbeVM>(_id);
+            if (obj != null)
+            {
+                txt_narudzbanaziv.Text = obj.NazivNarudzbe;
+                cmb_status.DisplayMember = "NazivStatusa";
+                cmb_status.ValueMember = "StatusNarudzbeID";
+                cmb_status.DataSource = obj.listastatusa;
+            }
+            else
+            {
+                MessageBox.Show("Ova narudžba više ne postoji u sistemu!", "Uredi status", MessageBoxButtons.OK);
+                this.Close();
+            }
         }
 
         private async void btn_sacuvaj_Click(object sender, EventArgs e)

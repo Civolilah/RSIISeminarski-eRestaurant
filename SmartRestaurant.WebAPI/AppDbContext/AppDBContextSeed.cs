@@ -709,51 +709,58 @@ namespace SmartRestaurant.WebAPI
                 );
             modelBuilder.Entity<NarudzbaProizvod>().HasData(
 
+
                new NarudzbaProizvod
                {
-                    NarudzbaProizvodID=1,
+                   NarudzbaProizvodID = 1,
+                   NarudzbaID = 1,
+                   ProizvodID = 7
+               },
+               new NarudzbaProizvod
+               {
+                    NarudzbaProizvodID=2,
                     NarudzbaID=2,
                     ProizvodID=7
                },
                new NarudzbaProizvod
                {
-                   NarudzbaProizvodID=2,
+                   NarudzbaProizvodID=3,
                    NarudzbaID = 2,
                    ProizvodID = 5
-               },
-               new NarudzbaProizvod
-               {
-                   NarudzbaProizvodID = 3,
-                   NarudzbaID = 2,
-                   ProizvodID = 1
                },
                new NarudzbaProizvod
                {
                    NarudzbaProizvodID = 4,
                    NarudzbaID = 2,
-                   ProizvodID = 9
+                   ProizvodID = 1
                },
                new NarudzbaProizvod
                {
                    NarudzbaProizvodID = 5,
-                   NarudzbaID = 3,
-                   ProizvodID = 5
+                   NarudzbaID = 2,
+                   ProizvodID = 9
                },
                new NarudzbaProizvod
                {
                    NarudzbaProizvodID = 6,
                    NarudzbaID = 3,
-                   ProizvodID = 7
+                   ProizvodID = 5
                },
                new NarudzbaProizvod
                {
                    NarudzbaProizvodID = 7,
                    NarudzbaID = 3,
-                   ProizvodID = 1
+                   ProizvodID = 7
                },
                new NarudzbaProizvod
                {
                    NarudzbaProizvodID = 8,
+                   NarudzbaID = 3,
+                   ProizvodID = 1
+               },
+               new NarudzbaProizvod
+               {
+                   NarudzbaProizvodID = 9,
                    NarudzbaID = 3,
                    ProizvodID = 9
                }

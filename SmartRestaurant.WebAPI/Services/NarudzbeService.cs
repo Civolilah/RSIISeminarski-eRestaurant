@@ -82,35 +82,50 @@ namespace SmartRestaurant.WebAPI
         public DetaljiNarudzbeVM GetNarudzbaDetalji(int idnarudzbe)
         {
 
-            DetaljiNarudzbeVM detalji = _context.Narudzba.Include(a=>a.NarudzbaDetalji).Where(a => a.NarudzbaID == idnarudzbe).Select(a => new DetaljiNarudzbeVM
+            DetaljiNarudzbeVM detalji = null;
+            
+            detalji=_context.Narudzba.Include(a=>a.NarudzbaDetalji).Where(a => a.NarudzbaID == idnarudzbe).Select(a => new DetaljiNarudzbeVM
             {
                 Cijena=a.NarudzbaDetalji.Cijena.ToString()+" KM"
             }).FirstOrDefault();
-            detalji.listaproizvoda = _context.NarudzbaProizvod.Include(a => a.Proizvod).Include(a=>a.Proizvod.ProizvodDetalji).Where(a => a.NarudzbaID == idnarudzbe).Select(a=>new ProizvodNarudzbaDetaljiVM { 
-                Naziv=a.Proizvod.Naziv,
-                Cijena=a.Proizvod.Cijena,
-                Opis=a.Proizvod.ProizvodDetalji.Opis
-            }).ToList();
-
-            Narudzba n = _context.Narudzba.Where(a => a.NarudzbaID == idnarudzbe).FirstOrDefault();
-
-            if (n.ImeNarucioca != null)
+            if (detalji != null)
             {
-                detalji.ImeIPrezimeNarucioca = n.ImeNarucioca;
-                detalji.AdresaNarucioca = n.AdresaNarucioca;
-                detalji.BrojTelefonaNarucioca = n.BrojTelefonaNarucioca;
+                detalji.listaproizvoda = _context.NarudzbaProizvod.Include(a => a.Proizvod).Include(a=>a.Proizvod.ProizvodDetalji).Where(a => a.NarudzbaID == idnarudzbe).Select(a=>new ProizvodNarudzbaDetaljiVM { 
+                    Naziv=a.Proizvod.Naziv,
+                    Cijena=a.Proizvod.Cijena,
+                    Opis=a.Proizvod.ProizvodDetalji.Opis
+                }).ToList();
+
+                Narudzba n = _context.Narudzba.Where(a => a.NarudzbaID == idnarudzbe).FirstOrDefault();
+
+                if (n.ImeNarucioca != null)
+                {
+                    detalji.ImeIPrezimeNarucioca = n.ImeNarucioca;
+                    detalji.AdresaNarucioca = n.AdresaNarucioca;
+                    detalji.BrojTelefonaNarucioca = n.BrojTelefonaNarucioca;
+                }
+            }
+            else
+            {
+                return null;
             }
             return detalji;
         }
 
         public IzmjeniStatusNarudzbeVM GetNarudzbaStatus(int idnarudzbestatus)
         {
-
             IzmjeniStatusNarudzbeVM status = new IzmjeniStatusNarudzbeVM();
-
-            
-            status.NazivNarudzbe = _context.Narudzba.Where(a => a.NarudzbaID == idnarudzbestatus).Select(a => a.NazivNarudzbe).FirstOrDefault();
-            status.listastatusa = _context.StatusNarudzbe.ToList();
+            Narudzba provjera = null;
+            provjera = _context.Narudzba.Where(a => a.NarudzbaID == idnarudzbestatus).FirstOrDefault();
+            if (provjera != null)
+            {
+                status.NazivNarudzbe = _context.Narudzba.Where(a => a.NarudzbaID == idnarudzbestatus).Select(a => a.NazivNarudzbe).FirstOrDefault();
+                status.listastatusa = _context.StatusNarudzbe.ToList();
+            }
+            else
+            {
+                return null;
+            }
 
             return status;
         }
@@ -128,36 +143,52 @@ namespace SmartRestaurant.WebAPI
 
         public Narudzba IzbrisiNarudzbu(int id)
         {
-            NarudzbaProizvod narudzbaproizvod = _context.NarudzbaProizvod.Where(a => a.NarudzbaID == id).FirstOrDefault();
-            Narudzba narudzba = _context.Narudzba.Where(a => a.NarudzbaID == id).FirstOrDefault();
-            _context.NarudzbaProizvod.Remove(narudzbaproizvod);
-            _context.Narudzba.Remove(narudzba);
-            _context.SaveChanges();
+            Narudzba narudzba = null;
+            narudzba=_context.Narudzba.Where(a => a.NarudzbaID == id).FirstOrDefault();
+            if (narudzba != null)
+            {
+                NarudzbaProizvod narudzbaproizvod = _context.NarudzbaProizvod.Where(a => a.NarudzbaID == id).FirstOrDefault();
+                _context.NarudzbaProizvod.Remove(narudzbaproizvod);
+                _context.Narudzba.Remove(narudzba);
+                _context.SaveChanges();
+            }
+            else
+            {
+                return null;
+            }
 
             return narudzba;
-
         }
 
         public UrediNarudzbuVM GetNarudzba(int idnarudzbe)
         {
+            Narudzba provjera = null;
+            provjera = _context.Narudzba.Where(a => a.NarudzbaID == idnarudzbe).FirstOrDefault();
             UrediNarudzbuVM objekat = new UrediNarudzbuVM();
-
-            List<NarudzbaProizvod> lista = _context.NarudzbaProizvod.Include(a=>a.Proizvod).Include(a=>a.Proizvod.ProizvodDetalji).Where(a => a.NarudzbaID == idnarudzbe).ToList();
-            List<Proizvod> lista2 = _context.Proizvod.Include(a => a.ProizvodDetalji).Include(a => a.ProizvodDetalji).ToList();
-            objekat.listaproizvoda = lista2.Select(a => new UrediNarudzbuProizvodVM
+            if (provjera != null)
             {
-                NazivProizvoda=a.Naziv,
-                Cijena=a.Cijena,
-                Narucen=GetValue(lista,a.ProizvodID),
-                Opis=a.ProizvodDetalji.Opis,
-                ProizvodID=a.ProizvodID
-            }).ToList();
 
-            objekat.listamjestaposluzivanja = _context.MjestoPosluzivanja.Select(a => new MjestoPosluzivanja
+                List<NarudzbaProizvod> lista = _context.NarudzbaProizvod.Include(a=>a.Proizvod).Include(a=>a.Proizvod.ProizvodDetalji).Where(a => a.NarudzbaID == idnarudzbe).ToList();
+                List<Proizvod> lista2 = _context.Proizvod.Include(a => a.ProizvodDetalji).Include(a => a.ProizvodDetalji).ToList();
+                objekat.listaproizvoda = lista2.Select(a => new UrediNarudzbuProizvodVM
+                {
+                    NazivProizvoda=a.Naziv,
+                    Cijena=a.Cijena,
+                    Narucen=GetValue(lista,a.ProizvodID),
+                    Opis=a.ProizvodDetalji.Opis,
+                    ProizvodID=a.ProizvodID
+                }).ToList();
+
+                objekat.listamjestaposluzivanja = _context.MjestoPosluzivanja.Select(a => new MjestoPosluzivanja
+                {
+                    MjestoPosluzivanjaID=a.MjestoPosluzivanjaID,
+                    BrojMjestaPosluzivanja=a.BrojMjestaPosluzivanja
+                }).ToList();
+            }
+            else
             {
-                MjestoPosluzivanjaID=a.MjestoPosluzivanjaID,
-                BrojMjestaPosluzivanja=a.BrojMjestaPosluzivanja
-            }).ToList();
+                return null;
+            }
 
             return objekat;
         }
