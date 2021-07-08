@@ -43,7 +43,7 @@ namespace SmartRestaurantWinUI.Korisnici
                 }
                 catch (Exception ex)
                 {                                                                                                                                                                                                                                                                                  
-                    MessageBox.Show("Vaši pristupni podaci nisu validni!", "Autentifikacija", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Vaši pristupni podaci nisu validni!!", "Autentifikacija", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
