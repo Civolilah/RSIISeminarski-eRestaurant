@@ -68,6 +68,7 @@ namespace SmartRestaurantWinUI.Izvjestaj
             this.dtp_od.Name = "dtp_od";
             this.dtp_od.Size = new System.Drawing.Size(242, 22);
             this.dtp_od.TabIndex = 0;
+            this.dtp_od.Value = new System.DateTime(2021, 4, 20, 0, 0, 0, 0);
             this.dtp_od.Validating += new System.ComponentModel.CancelEventHandler(this.dtp_od_Validating);
             // 
             // dtp_do
@@ -77,7 +78,7 @@ namespace SmartRestaurantWinUI.Izvjestaj
             this.dtp_do.Name = "dtp_do";
             this.dtp_do.Size = new System.Drawing.Size(242, 22);
             this.dtp_do.TabIndex = 1;
-            this.dtp_do.Value = new System.DateTime(2021, 5, 25, 21, 23, 0, 0);
+            this.dtp_do.Value = new System.DateTime(2021, 8, 19, 0, 0, 0, 0);
             this.dtp_do.Validating += new System.ComponentModel.CancelEventHandler(this.dtp_do_Validating);
             // 
             // label1
